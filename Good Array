@@ -1,0 +1,42 @@
+/*For a number N, a goodArray is the smallest
+possible array that consists of only powers of
+two (2°, 21 .…. 2k) such that the sum of all the
+numbers in the array is equal to N.
+For each query that consists of three integers 1,
+r, and m, find out the product of elements
+goodArray/) through goodArray(r] modulo
+m when goodArray is sorted in non-decreasing
+order.
+Example
+For N= 26, querles = (I1, 2, 1009), [3, 3, 51
+goodArray when sorted is (2,8,16),
+For query l= 1, r= 2, m = 1009, ans=
+goodAray(1] * goodArray(2) = (2 * 8) modulo
+1009 = 16.
+For query | = 3, r= 3, m = 5, ans = goodAray=
+(16) modulo 5 = 1.
+The answer is (16, 1). */
+
+function getQueryResults(n, queries) {
+    let powers = [];
+    let i = 0;
+    while (n > 0) {
+        if (n % 2 === 1) {
+        powers.push(Math.pow(2, i));
+        }
+        i++;
+        n = Math.floor(n / 2);
+    }
+    let results = [];
+    for (let query of queries) {
+        let start = query[0] - 1;
+        let end = query[1] - 1;
+        let m = query[2];
+        let product = 1;
+        for (let i = start; i <= end; i++) {
+        product = (product * powers[i]) % m;
+        }
+        results.push(product);
+    }
+    return results;
+    }
